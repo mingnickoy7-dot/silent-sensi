@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b11">
+<meta name="description" content="Silent Sensi - dynamic Free Fire sensitivity generator for Android and iPhone">
+<title>Silent Sensi | Free Fire Sensi Generator</title>
+<style>
+:root{--cyan:#00f2ff;--purple:#7000ff;--bg:#07090d;--card:#12151d;--card2:#0d1016;--text:#fff;--muted:#8e96a5;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}
+body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 15% 0,#17202d 0,#090b11 42%,#050609 100%);overflow-x:hidden}
+nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:15px 5%;background:rgba(7,9,13,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.logo{font-weight:950;letter-spacing:2px;font-size:1.35rem}.logo span{color:var(--cyan)}
+.navbtn,.generate{border:0;border-radius:24px;padding:11px 18px;color:#fff;font-weight:900;cursor:pointer;background:linear-gradient(45deg,var(--purple),var(--cyan));box-shadow:0 0 18px rgba(0,242,255,.08)}
+.wrap{width:min(1180px,94%);margin:auto}.hero{padding:38px 0 24px}.eyebrow{font-size:.72rem;letter-spacing:2px;color:var(--cyan);font-weight:900}.hero h1{font-size:clamp(2.5rem,8vw,5rem);line-height:.92;margin:9px 0 14px}.gradient{background:linear-gradient(90deg,#fff,var(--cyan));color:transparent;background-clip:text;-webkit-background-clip:text}.hero p{max-width:720px;color:#aab1bd;line-height:1.6}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px}.side,.card{background:rgba(18,21,29,.94);border:1px solid var(--line);border-radius:20px}.side{padding:14px;height:max-content;position:sticky;top:80px}.side-title{font-size:.7rem;color:var(--muted);letter-spacing:1.5px;margin:7px 10px 10px;text-transform:uppercase}.side button{display:block;width:100%;border:0;background:transparent;color:#d8dce4;text-align:left;padding:11px 12px;border-radius:11px;cursor:pointer;margin-bottom:5px}.side button:hover,.side button.active{color:var(--cyan);background:rgba(0,242,255,.08)}
+.card{padding:23px;margin-bottom:20px}.card h2{margin-bottom:5px}.sub{font-size:.86rem;color:var(--muted);margin-bottom:18px}.controls{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;color:#aeb5c1;font-size:.73rem;font-weight:800;letter-spacing:.5px;margin-bottom:7px}select,input[type=number]{width:100%;border:1px solid var(--line);background:#090b10;color:#fff;border-radius:10px;padding:12px;outline:none}select:focus,input:focus{border-color:var(--cyan)}
+.slider{width:100%;accent-color:var(--cyan)}.range-label{display:flex;justify-content:space-between;color:#aeb5c1;font-size:.76rem;margin-bottom:5px}.range-label b{color:var(--cyan)}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.preset{border:1px solid var(--line);background:#0b0e14;color:#ddd;border-radius:20px;padding:9px 13px;cursor:pointer}.preset.active,.preset:hover{border-color:var(--cyan);color:var(--cyan)}
+.actions{display:flex;gap:9px;flex-wrap:wrap}.secondary{border:1px solid var(--line);background:#0b0e14;color:#fff;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}
+.sensi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.sbox{background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:15px;padding:17px;text-align:center}.sbox h3{font-size:.78rem;color:#aeb5c1}.value{font-size:2rem;font-weight:950;color:var(--cyan);margin:6px}.sbox p{font-size:.7rem;color:var(--muted)}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.meta div{background:#0b0e14;border:1px solid var(--line);border-radius:11px;padding:11px}.meta span{display:block;color:var(--muted);font-size:.68rem}.meta b{font-size:.9rem}
+.coach{border-left:3px solid var(--cyan);background:rgba(0,242,255,.04);border-radius:0 10px 10px 0;padding:13px;color:#cbd0d9;line-height:1.55}
+footer{text-align:center;color:#69717e;padding:25px;font-size:.75rem}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);opacity:0;background:#171b24;border:1px solid var(--cyan);padding:12px 18px;border-radius:12px;z-index:100;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.side{position:static;display:flex;overflow:auto;gap:6px}.side-title{display:none}.side button{white-space:nowrap;width:auto;margin:0}.controls{grid-template-columns:1fr}.sensi-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:430px){.sensi-grid{grid-template-columns:1fr 1fr}.meta{grid-template-columns:1fr}.card{padding:17px}}
+</style>
+</head>
+<body>
+<nav><div class="logo">SILENT <span>SENSI</span></div><button class="navbtn" onclick="document.getElementById('generator').scrollIntoView({behavior:'smooth'})">GENERATE</button></nav>
+
+<div class="wrap">
+<section class="hero">
+<div class="eyebrow">ANDROID + IOS • FREE FIRE</div>
+<h1>Build your<br><span class="gradient">perfect sensi.</span></h1>
+<p>Choose the exact phone family, model, DPI, fire button, drag type and playstyle. Silent Sensi recalculates the setup whenever you change an option.</p>
+</section>
+
+<div class="layout">
+<aside class="side">
+<div class="side-title">Drag Profiles</div>
+<button class="active" onclick="setDrag('Aggressive',this)">⚡ Aggressive</button>
+<button onclick="setDrag('Controlled',this)">🎯 Controlled</button>
+<button onclick="setDrag('Smooth',this)">🧊 Smooth</button>
+<button onclick="setDrag('One Tap',this)">💀 One Tap</button>
+<button onclick="setDrag('Short Drag',this)">↗ Short Drag</button>
+<button onclick="setDrag('Long Drag',this)">↗ Long Drag</button>
+</aside>
+
+<main>
+<section class="card" id="generator">
+<h2>Phone & Playstyle</h2><p class="sub">Changing any option automatically generates a new recommendation.</p>
+<div class="controls">
+<div class="field"><label>OPERATING SYSTEM</label><select id="os" onchange="populateBrands()"><option value="android">Android</option><option value="ios">iPhone / iOS</option></select></div>
+<div class="field"><label>BRAND</label><select id="brand" onchange="populateModels()"></select></div>
+<div class="field"><label>PHONE MODEL</label><select id="model" onchange="generate()"></select></div>
+<div class="field"><label>PLAYSTYLE</label><select id="playstyle" onchange="generate()"><option>Aggressive</option><option>Balanced</option><option>Headshot</option><option>Long Range</option><option>Rush</option><option>Sniper</option></select></div>
+<div class="field"><label>DPI / DISPLAY SCALE</label><input id="dpi" type="number" min="100" max="1200" value="420" oninput="generate()"></div>
+<div class="field"><label>FIRE BUTTON (1–60)</label><input id="fire" type="number" min="1" max="60" value="40" oninput="generate()"></div>
+</div>
+
+<div class="presets">
+<button class="preset active" onclick="setPreset('Aggressive',this)">Aggressive</button>
+<button class="preset" onclick="setPreset('Balanced',this)">Balanced</button>
+<button class="preset" onclick="setPreset('Headshot',this)">Headshot</button>
+<button class="preset" onclick="setPreset('Rush',this)">Rush</button>
+<button class="preset" onclick="setPreset('Sniper',this)">Sniper</button>
+</div>
+
+<div class="range-label"><span>DRAG LENGTH / CONTROL</span><b id="dragValue">75%</b></div>
+<input class="slider" id="drag" type="range" min="0" max="100" value="75" oninput="generate()">
+
+<br><br>
+<div class="actions">
+<button class="generate" onclick="generate()">⚡ GENERATE NEW SENSI</button>
+<button class="secondary" onclick="copySettings()">📋 COPY</button>
+<button class="secondary" onclick="saveSettings()">💾 SAVE</button>
+<button class="secondary" onclick="randomize()">🎲 RANDOM</button>
+</div>
+</section>
+
+<section class="card">
+<h2>Silent Sensi Result</h2><p class="sub">Free Fire sensitivity scale: 0–200.</p>
+<div class="meta">
+<div><span>PHONE</span><b id="resultPhone">Samsung Galaxy A07</b></div>
+<div><span>DRAG TYPE</span><b id="resultDrag">Aggressive</b></div>
+<div><span>PROFILE</span><b id="resultProfile">Aggressive</b></div>
+</div>
+<div class="sensi-grid">
+<div class="sbox"><h3>GENERAL</h3><div class="value" id="general">190</div><p>Overall movement</p></div>
+<div class="sbox"><h3>RED DOT</h3><div class="value" id="red">188</div><p>Close-range drag</p></div>
+<div class="sbox"><h3>2X SCOPE</h3><div class="value" id="x2">178</div><p>Mid-range</p></div>
+<div class="sbox"><h3>4X SCOPE</h3><div class="value" id="x4">165</div><p>Long range</p></div>
+<div class="sbox"><h3>SNIPER</h3><div class="value" id="sniper">95</div><p>Fine control</p></div>
+<div class="sbox"><h3>FREE LOOK</h3><div class="value" id="free">185</div><p>Camera</p></div>
+</div>
+</section>
+
+<section class="card"><h2>Silent Coach</h2><p class="sub">Live advice for the selected setup.</p><div class="coach" id="coach">Choose a phone and generate your setup.</div></section>
+</main>
+</div>
+</div>
+<footer>Silent Sensi • Android + iOS • No account required</footer>
+<div class="toast" id="toast">Done</div>
+
+<script>
+const phones={
+android:{
+Samsung:{
+"Galaxy A07":{base:0,dpi:420},"Galaxy A06":{base:-2,dpi:400},"Galaxy A05":{base:-3,dpi:400},"Galaxy A15":{base:-2,dpi:420},"Galaxy A16":{base:-1,dpi:420},"Galaxy A25":{base:2,dpi:450},"Galaxy A35":{base:3,dpi:450},"Galaxy A55":{base:4,dpi:480},"Galaxy S21":{base:5,dpi:520},"Galaxy S22":{base:5,dpi:520},"Galaxy S23":{base:6,dpi:520},"Galaxy S24":{base:6,dpi:520},"Galaxy S25":{base:7,dpi:540}
+},
+Xiaomi:{
+"Redmi 9":{base:-3,dpi:400},"Redmi 10":{base:-2,dpi:420},"Redmi 12":{base:0,dpi:420},"Redmi Note 10":{base:0,dpi:430},"Redmi Note 11":{base:1,dpi:440},"Redmi Note 12":{base:2,dpi:450},"Redmi Note 13":{base:3,dpi:450},"Poco X3":{base:2,dpi:450},"Poco X5":{base:3,dpi:460},"Poco X6":{base:4,dpi:480}
+},
+Tecno:{
+"Spark 8":{base:-4,dpi:380},"Spark 10":{base:-2,dpi:400},"Spark 20":{base:0,dpi:420},"Spark 30":{base:1,dpi:430},"Pova 5":{base:2,dpi:440},"Pova 6":{base:3,dpi:450}
+},
+Infinix:{
+"Hot 11":{base:-3,dpi:390},"Hot 12":{base:-2,dpi:400},"Hot 30":{base:0,dpi:420},"Hot 40":{base:1,dpi:430},"Hot 50":{base:2,dpi:440},"Note 12":{base:0,dpi:420},"Note 30":{base:2,dpi:440},"GT 10 Pro":{base:4,dpi:460}
+},
+OnePlus:{
+"Nord N10":{base:0,dpi:430},"Nord N20":{base:2,dpi:450},"Nord CE 3":{base:3,dpi:460},"OnePlus 9":{base:4,dpi:500},"OnePlus 11":{base:6,dpi:520},"OnePlus 12":{base:7,dpi:530}
+},
+Google:{
+"Pixel 6":{base:3,dpi:480},"Pixel 7":{base:4,dpi:490},"Pixel 8":{base:5,dpi:500},"Pixel 9":{base:6,dpi:510}
+},
+Motorola:{
+"Moto G Power":{base:-2,dpi:400},"Moto G 5G":{base:0,dpi:430},"Moto G Stylus":{base:1,dpi:440},"Edge 40":{base:4,dpi:500},"Edge 50":{base:5,dpi:510}
+},
+Huawei:{
+"P30":{base:1,dpi:430},"P40":{base:2,dpi:450},"Nova 9":{base:2,dpi:450},"Nova 11":{base:3,dpi:460}
+},
+Oppo:{
+"A54":{base:-2,dpi:400},"A57":{base:-1,dpi:410},"A78":{base:2,dpi:440},"Reno 8":{base:3,dpi:460},"Reno 11":{base:5,dpi:490}
+},
+Vivo:{
+"Y20":{base:-3,dpi:390},"Y21":{base:-2,dpi:400},"Y35":{base:1,dpi:430},"V25":{base:3,dpi:460},"V30":{base:5,dpi:490}
+},
+Realme:{
+"C25":{base:-2,dpi:400},"C35":{base:0,dpi:420},"C55":{base:1,dpi:430},"10 Pro":{base:3,dpi:460},"GT Neo":{base:5,dpi:490}
+},
+"Other Android":{"Custom Android":{base:0,dpi:420}}
+},
+ios:{
+Apple:{
+"iPhone 8":{base:-2,dpi:0},"iPhone X":{base:0,dpi:0},"iPhone 11":{base:1,dpi:0},"iPhone 12":{base:2,dpi:0},"iPhone 13":{base:3,dpi:0},"iPhone 14":{base:4,dpi:0},"iPhone 14 Pro":{base:5,dpi:0},"iPhone 14 Pro Max":{base:5,dpi:0},"iPhone 15":{base:5,dpi:0},"iPhone 15 Pro":{base:6,dpi:0},"iPhone 15 Pro Max":{base:6,dpi:0},"iPhone 16":{base:6,dpi:0},"iPhone 16 Pro":{base:7,dpi:0},"iPhone 16 Pro Max":{base:7,dpi:0},"iPhone 17":{base:7,dpi:0},"iPhone 17 Pro":{base:8,dpi:0},"iPhone 17 Pro Max":{base:8,dpi:0},"iPhone SE (2020)":{base:-1,dpi:0},"iPhone SE (2022)":{base:0,dpi:0}
+}},
+};
+const profiles={
+Aggressive:{g:195,r:190,x2:180,x4:165,s:95,f:190,drag:82},
+Balanced:{g:185,r:180,x2:170,x4:155,s:88,f:180,drag:65},
+Headshot:{g:200,r:198,x2:185,x4:165,s:100,f:190,drag:88},
+Rush:{g:198,r:195,x2:185,x4:170,s:92,f:195,drag:90},
+Sniper:{g:175,r:165,x2:150,x4:140,s:78,f:170,drag:45}
+};
+let dragType="Aggressive", profile="Aggressive";
+
+const $=id=>document.getElementById(id);
+function populateBrands(){
+  const os=$("os").value, brands=Object.keys(phones[os]), b=$("brand");
+  b.innerHTML=brands.map(x=>`<option>${x}</option>`).join("");
+  populateModels();
+}
+function populateModels(){
+  const os=$("os").value, brand=$("brand").value, models=Object.keys(phones[os][brand]), m=$("model");
+  m.innerHTML=models.map(x=>`<option>${x}</option>`).join("");
+  const data=phones[os][brand][models[0]];
+  if(os==="android" && data.dpi) $("dpi").value=data.dpi;
+  generate();
+}
+function setPreset(p,el){
+  profile=p;$("playstyle").value=p;
+  document.querySelectorAll(".preset").forEach(x=>x.classList.remove("active")); if(el)el.classList.add("active");
+  $("drag").value=profiles[p].drag; generate();
+}
+function setDrag(d,el){
+  dragType=d;
+  document.querySelectorAll(".side button").forEach(x=>x.classList.remove("active"));el.classList.add("active");
+  const map={"Aggressive":82,"Controlled":65,"Smooth":48,"One Tap":88,"Short Drag":92,"Long Drag":55};
+  $("drag").value=map[d];generate();
+}
+function cap(n){return Math.max(0,Math.min(200,Math.round(n)))}
+function generate(){
+  const os=$("os").value,brand=$("brand").value,model=$("model").value;
+  if(!phones[os]||!phones[os][brand]||!phones[os][brand][model])return;
+  const info=phones[os][brand][model], p=profiles[profile];
+  let dpi=Number($("dpi").value)||420, fire=Math.max(1,Math.min(60,Number($("fire").value)||40)), drag=Number($("drag").value);
+  let device=info.base||0;
+  if(os==="android") device+=(dpi-420)/100;
+  const fireMod=(40-fire)*.22, dragMod=(drag-70)*.20;
+  let g=cap(p.g+device+dragMod), r=cap(p.r+device+dragMod+fireMod), x2=cap(p.x2+device+dragMod*.7), x4=cap(p.x4+device+dragMod*.5), s=cap(p.s+device-dragMod*.12), f=cap(p.f+device+(dpi-420)/150);
+  $("general").textContent=g;$("red").textContent=r;$("x2").textContent=x2;$("x4").textContent=x4;$("sniper").textContent=s;$("free").textContent=f;
+  $("dragValue").textContent=drag+"%";$("resultPhone").textContent=brand+" "+model;$("resultDrag").textContent=dragType;$("resultProfile").textContent=profile;
+  let advice;
+  if(os==="ios") advice="iPhone selected. iOS does not use Android-style DPI controls, so Silent Sensi bases the adjustment mainly on the model, drag profile and fire-button size.";
+  else if(dpi>600) advice="High DPI. If the crosshair flies over the head, reduce Red Dot by 5–10 before changing the whole setup.";
+  else if(dpi<300) advice="Lower DPI. Use a slightly longer drag and test General first. Change one value at a time.";
+  else if(fire<35) advice="Small fire button. Keep your upward drag short and controlled to avoid overshooting.";
+  else advice="Test this in Training. If you stop on the body, raise Red Dot by 5. If you fly over the head, lower it by 5.";
+  $("coach").textContent=advice;
+  localStorage.setItem("silentSensiV2",JSON.stringify({os,brand,model,dpi,fire,drag,dragType,profile}));
+}
+function randomize(){
+  const os=Math.random()>.5?"android":"ios";$("os").value=os;populateBrands();
+  const brands=Object.keys(phones[os]);$("brand").value=brands[Math.floor(Math.random()*brands.length)];populateModels();
+  const models=Object.keys(phones[os][$("brand").value]);$("model").value=models[Math.floor(Math.random()*models.length)];
+  const ps=Object.keys(profiles);profile=ps[Math.floor(Math.random()*ps.length)];$("playstyle").value=profile;
+  const ds=["Aggressive","Controlled","Smooth","One Tap","Short Drag","Long Drag"];dragType=ds[Math.floor(Math.random()*ds.length)];
+  $("fire").value=Math.floor(Math.random()*21)+30; $("drag").value=Math.floor(Math.random()*51)+45;generate();toast("Random setup generated");
+}
+function copySettings(){
+ const text=`SILENT SENSI\nPhone: ${$("resultPhone").textContent}\nProfile: ${profile}\nDrag: ${dragType}\nGeneral: ${$("general").textContent}\nRed Dot: ${$("red").textContent}\n2x: ${$("x2").textContent}\n4x: ${$("x4").textContent}\nSniper: ${$("sniper").textContent}\nFree Look: ${$("free").textContent}\nDPI: ${$("dpi").value}\nFire Button: ${$("fire").value}`;
+ navigator.clipboard.writeText(text).then(()=>toast("Settings copied!")).catch(()=>toast("Copy unavailable"));
+}
+function saveSettings(){generate();toast("Saved on this device!")}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1700)}
+function load(){
+ try{const s=JSON.parse(localStorage.getItem("silentSensiV2"));if(!s)return;
+ $("os").value=s.os||"android";populateBrands();$("brand").value=s.brand||$("brand").value;populateModels();$("model").value=s.model||$("model").value;
+ $("dpi").value=s.dpi||420;$("fire").value=s.fire||40;$("drag").value=s.drag||75;dragType=s.dragType||"Aggressive";profile=s.profile||"Aggressive";$("playstyle").value=profile;
+ }catch(e){}
+}
+$("playstyle").addEventListener("change",e=>{profile=e.target.value;generate()});
+populateBrands();load();generate();
+</script>
+</body>
+</html>
