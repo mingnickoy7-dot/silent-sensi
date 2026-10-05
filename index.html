@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0b10">
+<meta name="description" content="Silent Sensi - Free Fire sensitivity generator">
+<title>Silent Sensi | Free Fire Sensitivity Generator</title>
+<style>
+:root{--primary:#00f2ff;--secondary:#7000ff;--dark:#0a0b10;--card:#14161f;--muted:#8d93a1;--text:#fff;--line:rgba(255,255,255,.08)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Roboto,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(circle at 20% 0%,#18202b 0,#0a0b10 48%,#06070a 100%);color:var(--text);min-height:100vh}
+nav{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:16px 5%;background:rgba(10,11,16,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font-size:1.35rem;font-weight:900;letter-spacing:2px}.logo span{color:var(--primary)}
+.nav-btn,.primary-btn{border:0;border-radius:25px;padding:11px 18px;color:#fff;font-weight:800;cursor:pointer;background:linear-gradient(45deg,var(--secondary),var(--primary));transition:.2s}
+.nav-btn:hover,.primary-btn:hover{transform:translateY(-2px);box-shadow:0 0 22px rgba(0,242,255,.2)}
+.container{width:min(1150px,92%);margin:30px auto;display:grid;grid-template-columns:240px 1fr;gap:24px}
+.sidebar,.card{background:rgba(20,22,31,.9);border:1px solid var(--line);border-radius:20px}
+.sidebar{padding:18px;height:max-content;position:sticky;top:86px}
+.section-title{font-size:.75rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin:6px 10px 12px}
+.menu{display:block;width:100%;padding:12px;border:0;background:transparent;color:#ddd;text-align:left;border-radius:12px;cursor:pointer;font-weight:600;margin-bottom:5px}
+.menu:hover,.menu.active{background:rgba(0,242,255,.1);color:var(--primary)}
+main{min-width:0}.hero{padding:30px 4px 22px}.eyebrow{color:var(--primary);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.75rem}
+h1{font-size:clamp(2.2rem,7vw,4.5rem);line-height:.95;margin:10px 0}.gradient{background:linear-gradient(90deg,#fff,var(--primary));-webkit-background-clip:text;color:transparent}
+.hero p{color:#aeb4c0;max-width:650px;line-height:1.6}
+.card{padding:24px;margin-bottom:22px;box-shadow:0 18px 45px rgba(0,0,0,.25)}
+.card h2{margin-bottom:6px}.sub{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field label{display:block;color:#aeb4c0;font-size:.8rem;margin-bottom:7px}
+select,input{width:100%;padding:12px 13px;border-radius:10px;border:1px solid var(--line);background:#0b0d12;color:#fff;outline:none}
+select:focus,input:focus{border-color:var(--primary)}
+.range-row{display:flex;gap:10px;align-items:center}.range-row input[type=range]{padding:0;accent-color:var(--primary)}.range-value{width:58px;text-align:center;color:var(--primary);font-weight:800}
+.presets{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.preset{border:1px solid var(--line);background:#0d0f15;color:#ddd;padding:9px 13px;border-radius:20px;cursor:pointer}.preset.active,.preset:hover{border-color:var(--primary);color:var(--primary)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.secondary-btn{border:1px solid var(--line);background:#0d0f15;color:#fff;padding:11px 17px;border-radius:10px;cursor:pointer;font-weight:700}
+.sensi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.sensi-box{padding:18px;border-radius:15px;background:rgba(0,0,0,.22);border:1px solid var(--line);text-align:center}
+.sensi-box h3{font-size:.88rem;color:#b5bbc6}.value{font-size:2rem;font-weight:900;color:var(--primary);margin:6px 0}.sensi-box p{font-size:.72rem;color:var(--muted)}
+.advice{border-left:3px solid var(--primary);padding:12px 15px;background:rgba(0,242,255,.04);color:#c9ced7;line-height:1.5;border-radius:0 10px 10px 0}
+footer{text-align:center;color:#707784;font-size:.8rem;padding:25px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#171a23;border:1px solid var(--primary);padding:12px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:50}.toast.show{opacity:1;transform:translate(-50%,0)}
+.hidden{display:none}
+@media(max-width:800px){.container{grid-template-columns:1fr}.sidebar{position:static;display:flex;gap:8px;overflow:auto;padding:10px}.section-title{display:none}.menu{white-space:nowrap;width:auto;margin:0}.controls{grid-template-columns:1fr}.sensi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.sensi-grid{grid-template-columns:1fr 1fr}.card{padding:17px}nav{padding:14px 4%}.logo{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">SILENT <span>SENSI</span></div>
+  <button class="nav-btn" onclick="scrollToGenerator()">GENERATE</button>
+</nav>
+
+<div class="container">
+  <aside class="sidebar">
+    <div class="section-title">Modes</div>
+    <button class="menu active" onclick="setPreset('aggressive',this)">⚡ Aggressive</button>
+    <button class="menu" onclick="setPreset('balanced',this)">⚖ Balanced</button>
+    <button class="menu" onclick="setPreset('smooth',this)">🎯 Smooth</button>
+    <button class="menu" onclick="setPreset('oneTap',this)">💀 One Tap</button>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Free Fire Sensitivity Engine</div>
+      <h1>Play sharp.<br><span class="gradient">Stay Silent.</span></h1>
+      <p>Build a sensitivity setup around your device, DPI, fire button and playstyle. This is a recommendation engine, not a magic wand. Your thumb still has to cooperate.</p>
+    </section>
+
+    <section class="card" id="generator">
+      <h2>Build Your Sensi</h2>
+      <p class="sub">Enter your setup, choose a style, then generate.</p>
+
+      <div class="controls">
+        <div class="field">
+          <label>DEVICE</label>
+          <select id="device">
+            <option value="generic">Android / Other</option>
+            <option value="a07">Samsung Galaxy A07</option>
+            <option value="iphone14pro">iPhone 14 Pro</option>
+            <option value="iphone">Other iPhone</option>
+            <option value="samsung">Other Samsung</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>PLAYSTYLE</label>
+          <select id="style">
+            <option value="aggressive">Aggressive Drag</option>
+            <option value="balanced">Balanced</option>
+            <option value="smooth">Smooth Control</option>
+            <option value="oneTap">One Tap</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>DPI</label>
+          <input id="dpi" type="number" min="100" max="1200" value="420">
+        </div>
+        <div class="field">
+          <label>FIRE BUTTON</label>
+          <input id="fire" type="number" min="1" max="60" value="40">
+        </div>
+      </div>
+
+      <div class="presets">
+        <button class="preset active" onclick="setPreset('aggressive',this)">Aggressive</button>
+        <button class="preset" onclick="setPreset('balanced',this)">Balanced</button>
+        <button class="preset" onclick="setPreset('smooth',this)">Smooth</button>
+        <button class="preset" onclick="setPreset('oneTap',this)">One Tap</button>
+      </div>
+
+      <div class="field">
+        <label>DRAG CONTROL <span id="dragVal">75</span>%</label>
+        <div class="range-row">
+          <input id="drag" type="range" min="0" max="100" value="75" oninput="document.getElementById('dragVal').textContent=this.value">
+        </div>
+      </div>
+
+      <br>
+      <div class="actions">
+        <button class="primary-btn" onclick="generate()">⚡ GENERATE SENSI</button>
+        <button class="secondary-btn" onclick="copySettings()">📋 COPY SETTINGS</button>
+        <button class="secondary-btn" onclick="saveSettings()">💾 SAVE</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Your Silent Sensi</h2>
+      <p class="sub">Recommended values are capped at Free Fire's 200 sensitivity maximum.</p>
+      <div class="sensi-grid">
+        <div class="sensi-box"><h3>GENERAL</h3><div class="value" id="general">190</div><p>Overall camera / drag</p></div>
+        <div class="sensi-box"><h3>RED DOT</h3><div class="value" id="red">185</div><p>Close-range head drag</p></div>
+        <div class="sensi-box"><h3>2X SCOPE</h3><div class="value" id="x2">175</div><p>Mid-range tracking</p></div>
+        <div class="sensi-box"><h3>4X SCOPE</h3><div class="value" id="x4">160</div><p>Longer-range control</p></div>
+        <div class="sensi-box"><h3>SNIPER</h3><div class="value" id="sniper">90</div><p>Fine scope movement</p></div>
+        <div class="sensi-box"><h3>FREE LOOK</h3><div class="value" id="free">180</div><p>Camera movement</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Silent Coach</h2>
+      <p class="sub">Quick adjustment advice based on your setup.</p>
+      <div class="advice" id="advice">Generate your setup to get a recommendation.</div>
+    </section>
+  </main>
+</div>
+
+<footer>Silent Sensi • Built for Free Fire players • No account required</footer>
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+const presets={
+  aggressive:{general:195,red:190,x2:180,x4:165,sniper:95,free:190,drag:82},
+  balanced:{general:185,red:180,x2:170,x4:155,sniper:90,free:180,drag:65},
+  smooth:{general:170,red:165,x2:155,x4:145,sniper:82,free:165,drag:48},
+  oneTap:{general:200,red:195,x2:185,x4:165,sniper:100,free:190,drag:88}
+};
+let current="aggressive";
+
+function setPreset(name,el){
+  current=name;
+  const p=presets[name];
+  document.getElementById("style").value=name;
+  document.getElementById("drag").value=p.drag;
+  document.getElementById("dragVal").textContent=p.drag;
+  document.querySelectorAll(".preset,.menu").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".preset").forEach(x=>{if(x.textContent.toLowerCase().replace(" ","").includes(name.toLowerCase().replace(" ","")))x.classList.add("active")});
+  if(el)el.classList.add("active");
+  generate();
+}
+function cap(n){return Math.max(0,Math.min(200,Math.round(n)))}
+function generate(){
+  const device=document.getElementById("device").value;
+  const dpi=Math.max(100,Math.min(1200,Number(document.getElementById("dpi").value)||420));
+  const fire=Math.max(1,Math.min(60,Number(document.getElementById("fire").value)||40));
+  const drag=Number(document.getElementById("drag").value);
+  const p=presets[current];
+  let deviceMod=0;
+  if(device==="a07")deviceMod=-2;
+  if(device==="iphone14pro")deviceMod=-5;
+  if(device==="iphone")deviceMod=-3;
+  if(device==="samsung")deviceMod=-2;
+  const dpiMod=(dpi-420)/100;
+  const fireMod=(40-fire)*0.18;
+  const dragMod=(drag-70)*0.18;
+  document.getElementById("general").textContent=cap(p.general+deviceMod+dpiMod+dragMod);
+  document.getElementById("red").textContent=cap(p.red+deviceMod+dpiMod+dragMod+fireMod);
+  document.getElementById("x2").textContent=cap(p.x2+deviceMod+dpiMod*.6+dragMod*.7);
+  document.getElementById("x4").textContent=cap(p.x4+deviceMod+dpiMod*.4+dragMod*.5);
+  document.getElementById("sniper").textContent=cap(p.sniper+deviceMod+dpiMod*.15-dragMod*.15);
+  document.getElementById("free").textContent=cap(p.free+deviceMod+dpiMod*.7);
+  let tip;
+  if(dpi>600)tip="High DPI detected. If your aim overshoots heads, lower the General and Red Dot values slightly before changing everything at once.";
+  else if(dpi<300)tip="Lower DPI detected. Try a slightly stronger drag and keep your General sensitivity high enough to move the crosshair quickly.";
+  else if(fire<35)tip="Small fire button detected. Use shorter, controlled upward drags to avoid flying over the target.";
+  else tip="Start with this setup in Training. If you consistently go above the head, lower Red Dot by 5–10. If you stop on the body, raise it by 5–10.";
+  document.getElementById("advice").textContent=tip;
+  localStorage.setItem("silentSensi",JSON.stringify({device,dpi,fire,drag,current}));
+}
+function copySettings(){
+  const text=`SILENT SENSI\nGeneral: ${general.textContent}\nRed Dot: ${red.textContent}\n2x: ${x2.textContent}\n4x: ${x4.textContent}\nSniper: ${sniper.textContent}\nFree Look: ${free.textContent}\nDPI: ${dpi.value}\nFire Button: ${fire.value}`;
+  navigator.clipboard.writeText(text).then(()=>toast("Settings copied!")).catch(()=>toast("Copy blocked by browser"));
+}
+function saveSettings(){generate();toast("Settings saved on this device!")}
+function loadSettings(){
+  try{
+    const s=JSON.parse(localStorage.getItem("silentSensi"));
+    if(!s)return;
+    device.value=s.device||"generic";dpi.value=s.dpi||420;fire.value=s.fire||40;drag.value=s.drag||75;
+    document.getElementById("dragVal").textContent=drag.value;current=s.current||"aggressive";style.value=current;
+  }catch(e){}
+}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
+function scrollToGenerator(){document.getElementById("generator").scrollIntoView({behavior:"smooth"})}
+loadSettings();generate();
+</script>
+</body>
+</html>
